@@ -733,7 +733,6 @@ def match_patient_info(master_df,
 
         if information.shape[0] == 0:
             lost.append(['NoPaper', client['PatientID']])
-            print("No information for this client")
             num_no_survey += 1
             # If there is not information, then add to lost list so that you may look at these clients
             continue
@@ -750,10 +749,8 @@ def match_patient_info(master_df,
             survey = information.loc[
                 (information.index >= 0) & (information.index <= 90), :].iloc[0]  # First tries to find a survey 90 days before
             # the session started
-            print("Found a session in the 90 days before")
         except IndexError:
             num_outside_default_range += 1
-            print("Looking for closest absolute survey")
             survey = information.iloc[np.argmin(abs(information.index)), :]
             # if try fails, then use closest (absolute) survey
 
